@@ -1,0 +1,37 @@
+========================================================================
+Supplementary verification run
+numpy 2.3.5, sympy 1.14.0, seed 20260801
+========================================================================
+
+--- CHECK 1: affine hom-set dimensions (Section 4) ---
+[PASS] 1a(i). closed form vs exact constraint rank, exhaustive grid (dims <= 4, dimension product <= 32)  -- 156/156
+[PASS] 1a(ii). same, 300 random tuples with dims <= 8, dimension product <= 48  -- 300/300
+[PASS] 1b. hom-sets into the trivial object: d_A^2 - 1  -- 64/64
+[PASS] 1c. hom-sets from the trivial object to (E,E): e(e-1)  -- 12/12
+[PASS] 1d. Example [Qubit source and target]: dimensions 204 and 3132, beta_Z contradiction 4 vs 16, single-point alpha_Z=195 with no integer d^2
+
+--- CHECK 2: coefficient (intercept) rigidity under decoration ---
+    P_Y(u,v)          = alpha*u*v + beta*u - beta
+    decorated         = alpha*e**2*u*v + beta*e*u - beta
+    coefficient match: alpha_Z = e^2 alpha, beta_Z = e beta vs beta_Z = beta; residual = beta*e - beta =/= 0 for e>1, beta>=1
+[PASS] 2. decoration fixes the constant term and multiplies the coefficient of u by e; incompatibility residual (e-1) beta
+
+--- CHECK 3: e^2-e+1 strictly between consecutive squares ---
+[PASS] 3a. exhaustive d_E = 2..20000 (e = d_E^2)  -- violations=0
+[PASS] 3b. 2,000,000 random d_E, log-uniform to 1e9  -- violations=0
+
+--- CHECK 4: parallel tensor product (Section 6) ---
+[PASS] 4a. F (x) G is positive and satisfies both normalization equations, with prefix S_F (x) S_G, on random interior points  -- 5/5
+[PASS] 4b. interchange (F2 o F1) (x) (G2 o G1) = (F2 (x) G2) o (F1 (x) G1)  -- 40/40
+
+--- CHECK 5: FinStoch toy model (Section 5) ---
+[PASS] 5a. b^e - 1 > e(b-1): exhaustive b = 2..1999, e = 2..59  -- violations=0
+[PASS] 5b. 1,000,000 random (b,e) up to 1e6  -- violations=0
+
+--- CHECK 6: instrument pointwise obstruction (Appendix) ---
+[PASS] 6a. 500,000 sampled (d_E, d_B, n): non-integrality or the between-squares argument disposes of every case in the proposition's regime 2 d_E d_B - 1 > c (0 violations); the only square escapes occur outside that hypothesis  -- non-integer kills=287921; integer survivors=212079 with in-regime cases=193288 and regime violations=0; outside-hypothesis squares: 100 at the boundary c=2w-1 (of which 100 from the n=1, d_B=d_E/2 family), plus 21 deeper squares with c=k(2w-k), k>=2
+[PASS] 6b. escape anatomy (symbolic): boundary g_B=(w-1)^2; deeper squares g_B=(w-k)^2 with c=k(2w-k)>2w-1 for 2<=k<w; the n=1 boundary is the family d_B=d_E/2 (d_E even), g_B=(d_E^2/2-1)^2
+
+========================================================================
+RESULT: ALL CHECKS PASSED
+========================================================================
